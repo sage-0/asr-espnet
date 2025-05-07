@@ -1,0 +1,23 @@
+Failed to import Flash Attention, using ESPnet default: No module named 'flash_attn'
+Traceback (most recent call last):
+  File "/home/sage/worker/espnet/asr-summary.py", line 7, in <module>
+    from espnet2.bin.asr_inference_streaming import Speech2TextStreaming
+  File "/home/sage/.pyenv/versions/3.11.5/lib/python3.11/site-packages/espnet2/bin/asr_inference_streaming.py", line 20, in <module>
+    from espnet2.tasks.asr import ASRTask
+  File "/home/sage/.pyenv/versions/3.11.5/lib/python3.11/site-packages/espnet2/tasks/asr.py", line 76, in <module>
+    from espnet2.text.phoneme_tokenizer import g2p_choices
+  File "/home/sage/.pyenv/versions/3.11.5/lib/python3.11/site-packages/espnet2/text/phoneme_tokenizer.py", line 438, in <module>
+    class PhonemeTokenizer(AbsTokenizer):
+  File "/home/sage/.pyenv/versions/3.11.5/lib/python3.11/site-packages/espnet2/text/phoneme_tokenizer.py", line 439, in PhonemeTokenizer
+    @typechecked
+     ^^^^^^^^^^^
+  File "/home/sage/.pyenv/versions/3.11.5/lib/python3.11/site-packages/typeguard/_decorators.py", line 224, in typechecked
+    retval = instrument(target)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/sage/.pyenv/versions/3.11.5/lib/python3.11/site-packages/typeguard/_decorators.py", line 70, in instrument
+    module_ast = ast.parse(module_source)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sage/.pyenv/versions/3.11.5/lib/python3.11/ast.py", line 50, in parse
+    return compile(source, filename, mode, flags,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

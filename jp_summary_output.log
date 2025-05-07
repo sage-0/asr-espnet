@@ -1,0 +1,46 @@
+You are using the default legacy behaviour of the <class 'transformers.models.t5.tokenization_t5.T5Tokenizer'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
+要約モデルをロード中...
+要約モデルのロード中にエラーが発生しました: Descriptors cannot be created directly.
+If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc >= 3.19.0.
+If you cannot immediately regenerate your protos, some other possible workarounds are:
+ 1. Downgrade the protobuf package to 3.20.x or lower.
+ 2. Set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python (but this will use pure-Python parsing and will be much slower).
+
+More information: https://developers.google.com/protocol-buffers/docs/news/2022-05-06#python-updates
+Traceback (most recent call last):
+  File "/home/sage/worker/espnet/jp-text-summary.py", line 17, in <module>
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sage/.pyenv/versions/3.11.5/lib/python3.11/site-packages/transformers/models/auto/tokenization_auto.py", line 1009, in from_pretrained
+    return tokenizer_class.from_pretrained(pretrained_model_name_or_path, *inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sage/.pyenv/versions/3.11.5/lib/python3.11/site-packages/transformers/tokenization_utils_base.py", line 2062, in from_pretrained
+    return cls._from_pretrained(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sage/.pyenv/versions/3.11.5/lib/python3.11/site-packages/transformers/tokenization_utils_base.py", line 2302, in _from_pretrained
+    tokenizer = cls(*init_inputs, **init_kwargs)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sage/.pyenv/versions/3.11.5/lib/python3.11/site-packages/transformers/models/t5/tokenization_t5_fast.py", line 119, in __init__
+    super().__init__(
+  File "/home/sage/.pyenv/versions/3.11.5/lib/python3.11/site-packages/transformers/tokenization_utils_fast.py", line 120, in __init__
+    fast_tokenizer = convert_slow_tokenizer(slow_tokenizer)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sage/.pyenv/versions/3.11.5/lib/python3.11/site-packages/transformers/convert_slow_tokenizer.py", line 1722, in convert_slow_tokenizer
+    return converter_class(transformer_tokenizer).converted()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sage/.pyenv/versions/3.11.5/lib/python3.11/site-packages/transformers/convert_slow_tokenizer.py", line 551, in __init__
+    model_pb2 = import_protobuf()
+                ^^^^^^^^^^^^^^^^^
+  File "/home/sage/.pyenv/versions/3.11.5/lib/python3.11/site-packages/transformers/convert_slow_tokenizer.py", line 36, in import_protobuf
+    from sentencepiece import sentencepiece_model_pb2
+  File "/home/sage/.pyenv/versions/3.11.5/lib/python3.11/site-packages/sentencepiece/sentencepiece_model_pb2.py", line 34, in <module>
+    _descriptor.EnumValueDescriptor(
+  File "/home/sage/.pyenv/versions/3.11.5/lib/python3.11/site-packages/google/protobuf/descriptor.py", line 920, in __new__
+    _message.Message._CheckCalledFromGeneratedFile()
+TypeError: Descriptors cannot be created directly.
+If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc >= 3.19.0.
+If you cannot immediately regenerate your protos, some other possible workarounds are:
+ 1. Downgrade the protobuf package to 3.20.x or lower.
+ 2. Set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python (but this will use pure-Python parsing and will be much slower).
+
+More information: https://developers.google.com/protocol-buffers/docs/news/2022-05-06#python-updates
