@@ -1,0 +1,21 @@
+services:
+  arp-espnet:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ../workspace:/workspace
+    cap_add:
+        - SYS_PTRACE
+        - SYS_RESOURCE
+
+    #GPUを使う場合の設定
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities:
+                - gpu
