@@ -10,7 +10,7 @@ from transformers import pipeline
 # ASRモデルのタグ
 tag = 'eml914/streaming_conformer_asr_csj'
 # 処理する音声ファイル
-audio_file = "output.wav"
+audio_file = "./output.wav"
 # 要約する間隔（秒）
 SUMMARY_INTERVAL = 30  # 30秒ごとに要約
 # 要約の最大長と最小長
@@ -33,7 +33,7 @@ speech2text = Speech2TextStreaming(
     lm_weight=0.0,
     penalty=0.0,
     nbest=1,
-    device="cpu",  # CPUを使用
+    device="cuda",  # CPUを使用
     disable_repetition_detection=True,
     decoder_text_length_limit=0,
     encoded_feat_length_limit=0

@@ -1,11 +1,12 @@
 import sys
 import wave
 import numpy as np
+import librosa  # Add this import for resampling
 from espnet_model_zoo.downloader import ModelDownloader
 from espnet2.bin.asr_inference_streaming import Speech2TextStreaming
 
 tag = 'eml914/streaming_conformer_asr_csj'
-audio_file = "output.wav"
+audio_file = "GD-ST-A_a1.wav"
 
 # モデルのセットアップ
 d=ModelDownloader()
@@ -56,18 +57,29 @@ def recognize(wavfile):
     音声ファイルを読み込んで、ASR推論を行う
     """
     with wave.open(wavfile, 'rb') as wavfile:
-        ch=wavfile.getnchannels()
-        bits=wavfile.getsampwidth()
-        rate=wavfile.getframerate()
-        nframes=wavfile.getnframes()
+        ch = wavfile.getnchannels()
+        bits = wavfile.getsampwidth()
+        rate = wavfile.getframerate()
+        nframes = wavfile.getnframes()
         buf = wavfile.readframes(-1)
-        data=np.frombuffer(buf, dtype='int16')
-    # 32767は16ビットのバイナリ数の上限値であり、intをfloatに変換するための正規化に使用される
-    speech = data.astype(np.float16)/32767.0
+        data = np.frombuffer(buf, dtype=np.int16)
+
+    # ステレオ音声をモノラルに変換
+    # if ch > 1:
+    #     data = data.reshape(-1, ch).mean(axis=1).astype(np.int16)
+
+    # 正規化（16ビットの範囲を [-1.0, 1.0] にスケール）
+    speech = data.astype(np.float32) / 32768.0
+
+    # Resample audio to match the model's expected sample rate (16 kHz)
+    target_sample_rate = 16000
+    if rate != target_sample_rate:
+        speech = librosa.resample(speech, orig_sr=rate, target_sr=target_sample_rate)
+
     sim_chunk_length = 640
     if sim_chunk_length > 0:
-        for i in range(len(speech)//sim_chunk_length):
-            results = speech2text(speech=speech[i*sim_chunk_length:(i+1)*sim_chunk_length], is_final=False)
+        for i in range(len(speech) // sim_chunk_length):
+            results = speech2text(speech=speech[i * sim_chunk_length:(i + 1) * sim_chunk_length], is_final=False)
             if results is not None and len(results) > 0:
                 nbests = [text for text, token, token_int, hyp in results]
                 text = nbests[0] if nbests is not None and len(nbests) > 0 else ""
@@ -75,7 +87,7 @@ def recognize(wavfile):
             else:
                 progress_output("")
 
-        results = speech2text(speech[(i+1)*sim_chunk_length:len(speech)], is_final=True)
+        results = speech2text(speech[(i + 1) * sim_chunk_length:len(speech)], is_final=True)
     else:
         results = speech2text(speech, is_final=True)
     nbests = [text for text, token, token_int, hyp in results]
