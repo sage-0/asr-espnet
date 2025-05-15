@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File with uv",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "preLaunchTask": "uv-run-current-file",
+            "python": "${command:python.interpreterPath}"
+        },
+        {
+            "name": "Python: Debug Current File with uv",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "preLaunchTask": "uv-run-current-file",
+            "python": "${command:python.interpreterPath}"
+        }
+    ]
+}

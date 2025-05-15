@@ -1,0 +1,52 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "uv-run-current-file",
+            "type": "shell",
+            "command": "uv run --python $(cat .python-version) ${file}",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "uv-run-localfile-asr-text",
+            "type": "shell",
+            "command": "uv run --python $(cat .python-version) localfile-asr-text.py",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "uv-run-asr-text",
+            "type": "shell",
+            "command": "uv run --python $(cat .python-version) asr-text.py",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "uv-run-asr-summary",
+            "type": "shell",
+            "command": "uv run --python $(cat .python-version) asr-summary.py",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
